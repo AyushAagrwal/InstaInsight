@@ -7,13 +7,21 @@ import requests
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.chrome.options import Options
 
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 
 def instagram_login(username, password):
     # Set up Selenium webdriver
-    chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
+    # chrome_options = webdriver.ChromeOptions()
+    # chrome_options.add_argument("--headless")
 
-    driver = webdriver.Chrome(options=chrome_options)
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')
+    chrome_options.add_argument('--window-size=1920x1080')
+    chrome_options.add_argument('--disable-gpu')
+
+    # driver = webdriver.Chrome(options=chrome_options)
+    driver = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()), options=chrome_options)
     driver.get("https://www.instagram.com/accounts/login/")
 
     # Wait for page to load
